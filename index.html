@@ -3,199 +3,245 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANWAR NEWS - The Grand Archive (1995-2026)</title>
+    <title>ANWAR NEWS | 30,000 Ultra Archive</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     
     <style>
-        body { margin: 0; font-family: 'Roboto', sans-serif; background: #000; overflow-x: hidden; color: white; }
-        
-        /* 1. LOGIN ANIMATED GRADIENT & BUBBLES */
-        .login-view {
-            background: linear-gradient(-45deg, #000428, #004e92, #0d0124, #001220);
-            background-size: 400% 400%;
-            animation: gradientBG 10s ease infinite;
-            position: fixed; inset: 0; z-index: 100;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 1s cubic-bezier(0.7, 0, 0.3, 1);
-        }
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        :root { --neon: #00f2ff; }
+        body { background: #000; color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; margin: 0; }
 
-        .bubble {
-            position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%; animation: rise 8s infinite ease-in; pointer-events: none;
+        /* 1. SOLAR SYSTEM ANIMATION (LOGIN) */
+        .solar-container {
+            position: fixed; inset: 0; z-index: -1;
+            background: radial-gradient(circle at center, #001220 0%, #000 100%);
         }
-        @keyframes rise { 
-            0% { bottom: -100px; transform: translateX(0); opacity: 0; } 
-            20% { opacity: 0.5; }
-            100% { bottom: 100vh; transform: translateX(100px); opacity: 0; } 
+        .sun {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px; background: #ffcc00; border-radius: 50%;
+            box-shadow: 0 0 50px #ffcc00;
+        }
+        .orbit {
+            position: absolute; top: 50%; left: 50%; border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 50%; transform: translate(-50%, -50%);
+            animation: rotate var(--t) linear infinite;
+        }
+        .planet-ball {
+            position: absolute; top: -10px; left: 50%; width: 15px; height: 15px;
+            background: var(--c); border-radius: 50%; box-shadow: 0 0 15px var(--c);
+        }
+        @keyframes rotate { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* 2. NATURE BACKGROUNDS (ARCHIVE) */
+        .nature-layer {
+            position: fixed; inset: 0; z-index: -1;
+            background-size: cover; background-position: center;
+            transition: background-image 2s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: brightness(0.3) saturate(1.2);
         }
 
-        /* 2. TRANSFORMER LOGO */
+        /* 3. TRANSFORMER LOGO */
         .logo-transformer {
             font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(135deg, #888 0%, #fff 50%, #444 100%);
+            background: linear-gradient(135deg, #fff 0%, #aaa 45%, #555 55%, #000 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5));
-            text-transform: uppercase; font-weight: 900;
+            font-weight: 900; filter: drop-shadow(0 0 10px var(--neon));
+            padding: 10px 30px; border: 2px solid rgba(255,255,255,0.1);
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
         }
 
-        /* 3. ARCHIVE VIEW (GALAXY & NATURE) */
-        .archive-view {
-            display: none; min-height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1464802686167-b939a6910659?w=1920');
-            background-size: cover; background-attachment: fixed;
-            padding-bottom: 120px;
-        }
-
+        /* 4. CONTENT STYLING */
         .event-card {
-            background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
-            border-radius: 20px; overflow: hidden;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.4s; position: relative;
         }
-        .event-card:hover { border-color: #00f2ff; transform: scale(1.03); background: rgba(255,255,255,0.08); }
+        .event-card:hover { border-color: var(--neon); transform: scale(1.02); z-index: 10; }
+        
+        .explanation-text {
+            font-size: 10px; line-height: 1.6; color: #a1a1aa;
+            text-align: justify; border-top: 1px solid rgba(0,242,255,0.1);
+            padding-top: 10px; height: 320px; overflow-y: auto;
+        }
 
-        .hidden-login { transform: translateY(-100%) scale(0.8); opacity: 0; pointer-events: none; }
+        .page-transition { transition: 1.5s cubic-bezier(0.9, 0, 0.1, 1); }
+        .hidden-view { opacity: 0; transform: translateY(100vh); pointer-events: none; }
     </style>
 </head>
 <body>
 
-    <div id="bubbles-box" class="fixed inset-0 pointer-events-none z-[101]"></div>
-
-    <div id="login-page" class="login-view">
-        <div class="max-w-md w-full p-10 bg-black/40 backdrop-blur-xl border border-white/10 rounded-[40px] shadow-2xl text-center">
-            <h1 class="logo-transformer text-4xl mb-2">ANWAR NEWS</h1>
-            <p class="text-cyan-400 tracking-[0.4em] text-[10px] mb-8">SECURE ARCHIVE ACCESS</p>
+    <div id="login-view" class="fixed inset-0 z-[2000] flex items-center justify-center page-transition">
+        <div class="solar-container" id="solar-system">
+            <div class="sun"></div>
+            </div>
+        
+        <div class="max-w-md w-full p-12 bg-black/50 backdrop-blur-2xl rounded-[60px] border border-white/5 text-center">
+            <h1 class="logo-transformer text-4xl mb-6">ANWAR NEWS</h1>
+            <p class="text-cyan-400 tracking-[0.6em] text-[9px] mb-12 uppercase animate-pulse">Establishing 30,000 Uplinks...</p>
             
             <form id="loginForm" class="space-y-6">
-                <input type="email" placeholder="EMAIL ADDRESS" required class="w-full bg-white/5 border-b-2 border-white/20 p-3 outline-none focus:border-cyan-400 transition">
-                <input type="password" placeholder="SECURITY KEY" required class="w-full bg-white/5 border-b-2 border-white/20 p-3 outline-none focus:border-cyan-400 transition">
-                <button type="submit" class="w-full bg-cyan-600 py-4 font-bold rounded-xl hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest">
-                    Decrypt & Enter
+                <input type="text" placeholder="ARCHIVE_ID" required class="w-full bg-white/5 border-b border-cyan-800 p-4 outline-none focus:border-cyan-400 transition text-center text-sm">
+                <input type="password" placeholder="DECRYPT_KEY" required class="w-full bg-white/5 border-b border-cyan-800 p-4 outline-none focus:border-cyan-400 transition text-center text-sm">
+                <button type="submit" class="w-full bg-cyan-600 text-white py-4 font-black rounded-xl hover:bg-white hover:text-black transition-all duration-700 uppercase tracking-widest italic">
+                    INITIALIZE SYSTEM
                 </button>
             </form>
         </div>
     </div>
 
-    <div id="archive-page" class="archive-view">
-        <header class="p-6 bg-black/80 sticky top-0 z-50 border-b border-cyan-900">
-            <div class="max-w-7xl mx-auto flex justify-between items-center">
-                <h1 class="logo-transformer text-2xl">ANWAR NEWS</h1>
-                <div class="text-yellow-500 font-mono text-xs hidden md:block">DATABASE: 1995_2026 // ALL SECTORS READY</div>
-            </div>
+    <div id="archive-view" class="hidden opacity-0 page-transition min-h-screen">
+        <div id="nature-bg" class="nature-layer"></div>
+        
+        <header class="p-6 bg-black/90 sticky top-0 z-[100] border-b border-cyan-900/30 backdrop-blur-3xl flex justify-between items-center">
+            <h1 class="logo-transformer text-2xl">ANWAR NEWS</h1>
+            <div id="env-tag" class="text-cyan-500 font-mono text-[9px] tracking-widest uppercase">System Status: Optimal</div>
         </header>
 
-        <main class="max-w-7xl mx-auto p-8">
-            <div id="page-info" class="mb-8">
-                <h2 id="page-title" class="text-4xl font-black text-cyan-400 italic"></h2>
-                <p class="text-gray-400 mt-2">Showing 5 Global Records for this era.</p>
+        <main class="max-w-[1800px] mx-auto p-8 pb-48">
+            <div class="mb-12">
+                <h2 id="sector-display" class="text-8xl font-black italic text-white uppercase tracking-tighter"></h2>
+                <p class="text-gray-400 max-w-3xl mt-4">Database node containing 40 high-resolution historical records. Each entry contains 20 lines of deep-analysis regarding the socio-technological impact of the event.</p>
             </div>
-            
-            <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div id="archive-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 </div>
         </main>
 
-        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-black/90 backdrop-blur-2xl border-t border-cyan-500/20">
-            <div class="max-w-4xl mx-auto flex items-center justify-between">
-                <button onclick="changePage(-1)" class="px-8 py-3 border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white transition rounded-full font-bold">PREV</button>
-                <div class="text-center">
-                    <span id="page-display" class="text-4xl font-black text-white">01</span>
-                    <span class="text-gray-500"> / 25</span>
-                </div>
-                <button onclick="changePage(1)" class="px-8 py-3 bg-cyan-600 text-white hover:bg-cyan-400 transition rounded-full font-bold">NEXT</button>
+        <footer class="fixed bottom-0 inset-x-0 p-10 bg-black/95 border-t border-cyan-900/30 z-[100] flex items-center justify-between">
+            <button onclick="move(-1)" class="px-12 py-4 border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white transition font-black italic skew-x-[-15deg]">PREVIOUS</button>
+            <div class="text-center">
+                <div class="text-6xl font-black text-white" id="page-counter">001</div>
+                <div class="text-[9px] text-gray-500 font-mono tracking-[0.5em]">SECTOR OF 750</div>
             </div>
+            <button onclick="move(1)" class="px-12 py-4 bg-cyan-700 text-white hover:bg-white hover:text-black transition font-black italic skew-x-[-15deg]">NEXT</button>
         </footer>
     </div>
 
     <script>
-        // 1. GENERATE BUBBLES
-        const bBox = document.getElementById('bubbles-box');
-        for(let i=0; i<15; i++){
-            const b = document.createElement('div');
-            b.className = 'bubble';
-            b.style.left = Math.random()*100 + 'vw';
-            b.style.width = b.style.height = (Math.random()*40 + 10) + 'px';
-            b.style.animationDelay = Math.random()*5 + 's';
-            bBox.appendChild(b);
-        }
-
-        // 2. DATA ARCHIVE (Pages 1-25)
-        const totalPages = 25;
-        let currentPage = 1;
-
-        // Function kutengeneza data fake lakini zenye mpangilio wa miaka
-        const masterArchive = {};
-        const startYear = 1995;
-        const endYear = 2026;
-
-        for(let p=1; p<=totalPages; p++) {
-            let yearVal = startYear + Math.floor((p-1) * 1.2); 
-            masterArchive[p] = {
-                title: `Sector ${p}: Global Evolution`,
-                events: [
-                    { y: yearVal, n: "Major Political Shift", d: "Deep analysis of global leadership changes and treaty signings during this specific window of history.", i: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500" },
-                    { y: yearVal, n: "Tech Breakthrough", d: "A revolutionary invention in digital communication that paved the way for the modern internet and AI systems we use today.", i: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" },
-                    { y: yearVal, n: "Natural Phenomenon", d: "Significant environmental events that changed how humanity interacts with the planet's ecosystems and climate policy.", i: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500" },
-                    { y: yearVal, n: "Cultural Milestone", d: "Music, Art, and Cinema reached new heights, creating iconic moments that defined the generation of this era.", i: "https://images.unsplash.com/photo-1514525253361-b83f859b71c2?w=500" },
-                    { y: yearVal, n: "Economic Expansion", d: "Markets worldwide saw unprecedented growth as new trade routes and digital currencies began to take shape.", i: "https://images.unsplash.com/photo-1611974714658-52d3a776c535?w=500" }
-                ]
-            };
-        }
-
-        // 3. LOGIN LOGIC
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            document.getElementById('login-page').classList.add('hidden-login');
-            setTimeout(() => {
-                document.getElementById('archive-page').style.display = 'block';
-                renderPage(1);
-            }, 600);
+        // 1. SOLAR SYSTEM ENGINE
+        const solar = document.getElementById('solar-system');
+        const orbits = [
+            { r: '200px', t: '8s', c: '#888' },
+            { r: '350px', t: '15s', c: '#ff5722' },
+            { r: '500px', t: '25s', c: '#03a9f4' },
+            { r: '700px', t: '40s', c: '#4caf50' },
+            { r: '900px', t: '60s', c: '#9c27b0' }
+        ];
+        orbits.forEach(o => {
+            const orb = document.createElement('div');
+            orb.className = 'orbit';
+            orb.style.width = orb.style.height = o.r;
+            orb.style.setProperty('--t', o.t);
+            const p = document.createElement('div');
+            p.className = 'planet-ball';
+            p.style.setProperty('--c', o.c);
+            orb.appendChild(p);
+            solar.appendChild(orb);
         });
 
-        // 4. RENDER PAGE
-        function renderPage(p) {
-            const data = masterArchive[p];
-            document.getElementById('page-title').innerText = data.title;
-            document.getElementById('page-display').innerText = String(p).padStart(2, '0');
-            
-            const grid = document.getElementById('events-grid');
-            grid.innerHTML = '';
+        // 2. DATA CONFIG
+        const totalSectors = 750;
+        let currentSector = 1;
 
-            data.events.forEach(ev => {
+        const natureScenes = [
+            { url: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b", n: "Alpine Mountains" },
+            { url: "https://images.unsplash.com/photo-1433086966358-54859d0ed716", n: "Tropical Waterfalls" },
+            { url: "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05", n: "Greenland Sunset" },
+            { url: "https://images.unsplash.com/photo-1464802686167-b939a6910659", n: "Deep Space Stars" },
+            { url: "https://images.unsplash.com/photo-1501785888041-af3ef285b470", n: "Lakeside Sky" }
+        ];
+
+        // 3. EXPLANATION GENERATOR (Creates 20 Lines)
+        function generate20Lines(id) {
+            const sentences = [
+                "Analysis of global data stream indicates significant historical shift.",
+                "Deep-learning nodes have verified the authenticity of this record.",
+                "Socio-economic impact factors exceed the threshold of 85.4%.",
+                "Atmospheric conditions during this event were recorded as stable.",
+                "Technological advancements in this era paved way for neural links.",
+                "Global leaders converged to discuss the implications of this shift.",
+                "Financial markets reacted with unprecedented volatility during the surge.",
+                "Cultural milestones achieved here defined the next three generations.",
+                "Biological data suggests an evolution in human-nature interaction.",
+                "Digital archives from source Alpha-9 confirm high-priority status.",
+                "Quantum encryption was utilized to protect the integrity of this file.",
+                "The energy signature detected at the site was massive and unique.",
+                "Satellite imagery reveals a transformation in geographical terrain.",
+                "Policy changes following this event restructured the global alliance.",
+                "Educational systems were overhauled to integrate these new findings.",
+                "Communication protocols shifted to a decentralized lattice network.",
+                "The core objective of this entry is to preserve the truth of the event.",
+                "AI observers have flagged this moment as a 'Point of No Return'.",
+                "Final verification completed by Anwar News Cryptographic Engine.",
+                "End of deep-data explanation for Global Record #" + id + "."
+            ];
+            return sentences.join('<br>'); // Join with line breaks to force exactly 20 lines
+        }
+
+        // 4. CORE ENGINE
+        function render(s) {
+            const grid = document.getElementById('archive-grid');
+            const bg = document.getElementById('nature-bg');
+            const envTag = document.getElementById('env-tag');
+            
+            grid.innerHTML = '';
+            document.getElementById('sector-display').innerText = `SECTOR ${s}`;
+            document.getElementById('page-counter').innerText = String(s).padStart(3, '0');
+
+            // Set Background
+            const scene = natureScenes[s % natureScenes.length];
+            bg.style.backgroundImage = `url('${scene.url}?w=1600')`;
+            envTag.innerText = `Environment: ${scene.n} // Total: 30,000`;
+
+            for(let i=1; i<=40; i++) {
+                const id = (s-1)*40 + i;
+                const year = 1995 + Math.floor(id/1000);
+                
                 grid.innerHTML += `
-                    <div class="event-card group cursor-pointer">
-                        <div class="h-48 overflow-hidden">
-                            <img src="${ev.i}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="event-card rounded-[30px] p-6 group">
+                        <div class="overflow-hidden rounded-2xl mb-4">
+                            <img src="https://picsum.photos/seed/${id}/600/400" class="w-full h-40 object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
                         </div>
-                        <div class="p-6">
-                            <span class="text-cyan-400 font-bold font-mono text-xl">${ev.y}</span>
-                            <h4 class="text-white text-2xl font-bold mt-1">${ev.n}</h4>
-                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">${ev.d}</p>
-                            <div class="mt-4 pt-4 border-t border-white/5 text-[10px] text-cyan-700 tracking-widest">DECRYPTED_SUCCESSFULLY</div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-cyan-400 font-bold font-mono text-xl">${year}</span>
+                            <span class="bg-white/10 px-3 py-1 rounded-full text-[8px] tracking-widest uppercase">REC_${id}</span>
+                        </div>
+                        <h4 class="text-white font-bold text-lg mb-4 uppercase tracking-tighter">Global Incident Report #${id}</h4>
+                        <div class="explanation-text">
+                            ${generate20Lines(id)}
                         </div>
                     </div>
                 `;
-            });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            window.scrollTo({top:0, behavior:'smooth'});
         }
 
-        function changePage(dir) {
-            currentPage += dir;
-            if(currentPage < 1) currentPage = totalPages;
-            if(currentPage > totalPages) currentPage = 1;
-            renderPage(currentPage);
+        // 5. UI ACTIONS
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('login-view').classList.add('hidden-view');
+            setTimeout(() => {
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('archive-view').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('archive-view').style.opacity = '1';
+                    render(1);
+                }, 100);
+            }, 1500);
+        });
+
+        function move(dir) {
+            currentSector += dir;
+            if(currentSector < 1) currentSector = totalSectors;
+            if(currentSector > totalSectors) currentSector = 1;
+            render(currentSector);
         }
     </script>
 </body>
 </html>
-      
-       
-   
-  
+          
 
-
-   
+    
 
 
    
