@@ -1,311 +1,201 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
-<html lang="en">
+<html lang="sw">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anwar News - Login</title>
+    <title>ANWAR NEWS - The Grand Archive (1995-2026)</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Roboto:wght@300;700&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .hero-bg {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080/?news') center/cover no-repeat;
-        }
-    </style>
-</head>
-<body class="bg-gray-50 min-h-screen">
-
-    <!-- Header -->
-    <header class="bg-white shadow-sm border-b">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">AN</div>
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-900">ANWAR NEWS</h1>
-                    <p class="text-xs text-gray-500 -mt-1">Habari za Kisasa</p>
-                </div>
-            </div>
-            <div class="text-sm text-gray-500">Welcome</div>
-        </div>
-    </header>
-
-    <div class="hero-bg min-h-screen flex items-center justify-center">
-        <div class="max-w-md w-full mx-4">
-            <!-- Login Card -->
-            <div class="bg-white rounded-2xl shadow-2xl p-8">
-                <div class="text-center mb-8">
-                    <div class="w-16 h-16 bg-red-600 rounded-2xl mx-auto flex items-center justify-center text-white font-bold text-4xl mb-4">AN</div>
-                    <h2 class="text-3xl font-bold text-gray-900">Login to Anwar News</h2>
-                    <p class="text-gray-600 mt-2">Ingia ili uendelee kupata habari</p>
-                </div>
-
-                <form id="loginForm" class="space-y-6">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                               placeholder="your@email.com" required>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input type="password" id="password" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                               placeholder="••••••••" required>
-                    </div>
-
-                    <div class="flex items-center justify-between text-sm">
-                        <label class="flex items-center gap-2">
-                            <input type="checkbox" class="w-4 h-4 text-red-600">
-                            <span class="text-gray-600">Nikumbuke</span>
-                        </label>
-                        <a href="#" class="text-red-600 hover:underline">Umesahau password?</a>
-                    </div>
-
-                    <button type="submit"
-                            class="w-full bg-red-600 hover:bg-red-700 transition text-white font-semibold py-3.5 rounded-xl text-lg">
-                        Sign In
-                    </button>
-                </form>
-
-                <div class="mt-8 text-center">
-                    <p class="text-gray-600">
-                        Huna akaunti? 
-                        <a href="#" onclick="alert('Sign up page itaongezwa baadaye')" 
-                           class="text-red-600 font-medium hover:underline">Sign up</a>
-                    </p>
-                </div>
-            </div>
-
-            <!-- Footer note -->
-            <p class="text-center text-white text-xs mt-6 opacity-75">
-                © 2026 Anwar News • All Rights Reserved
-            </p>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            if (email && password) {
-                alert("Login successful! (Hii ni demo)\n\nEmail: " + email);
-                // Hapa unaweza kuongeza redirect kwenye dashboard baadaye
-                // window.location.href = "dashboard.html";
-            } else {
-                alert("Tafadhali jaza email na password");
-            }
-        });
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANWAR NEWS - Global Events Archive 1995-2026</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap');
+        body { margin: 0; font-family: 'Roboto', sans-serif; background: #000; overflow-x: hidden; color: white; }
         
-        body {
-            background: linear-gradient(45deg, #ff0000, #0000ff, #00ff00, #ffff00, #ff00ff);
+        /* 1. LOGIN ANIMATED GRADIENT & BUBBLES */
+        .login-view {
+            background: linear-gradient(-45deg, #000428, #004e92, #0d0124, #001220);
             background-size: 400% 400%;
-            animation: gradientShift 25s ease infinite;
-            font-family: 'Inter', sans-serif;
-            color: white;
+            animation: gradientBG 10s ease infinite;
+            position: fixed; inset: 0; z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 1s cubic-bezier(0.7, 0, 0.3, 1);
         }
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        .neon-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 70px #ffff00, 0 0 80px #ff0000, 0 0 90px #00ff00;
-            animation: neonPulse 2.5s ease-in-out infinite alternate;
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .bubble {
+            position: absolute; bottom: -100px; background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%; animation: rise 8s infinite ease-in; pointer-events: none;
         }
-        @keyframes neonPulse {
-            from { text-shadow: 0 0 15px #fff, 0 0 30px #fff, 0 0 40px #ff00ff, 0 0 60px #00ffff, 0 0 70px #ffff00, 0 0 80px #ff0000, 0 0 90px #00ff00; }
-            to { text-shadow: 0 0 25px #fff, 0 0 40px #ff0000, 0 0 55px #00ff00, 0 0 70px #ff00ff, 0 0 85px #ffff00, 0 0 100px #0000ff; }
+        @keyframes rise { 
+            0% { bottom: -100px; transform: translateX(0); opacity: 0; } 
+            20% { opacity: 0.5; }
+            100% { bottom: 100vh; transform: translateX(100px); opacity: 0; } 
         }
-        
-        .event-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
-        .event-card:hover { transform: scale(1.05) rotate(1deg); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.5); }
-        
-        .modal {
-            animation: modalPop 0.4s ease forwards;
+
+        /* 2. TRANSFORMER LOGO */
+        .logo-transformer {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #888 0%, #fff 50%, #444 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(0, 242, 255, 0.5));
+            text-transform: uppercase; font-weight: 900;
         }
-        @keyframes modalPop { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-        
-        .footer-button:hover { transform: scale(1.12); box-shadow: 0 0 30px currentColor; }
+
+        /* 3. ARCHIVE VIEW (GALAXY & NATURE) */
+        .archive-view {
+            display: none; min-height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                        url('https://images.unsplash.com/photo-1464802686167-b939a6910659?w=1920');
+            background-size: cover; background-attachment: fixed;
+            padding-bottom: 120px;
+        }
+
+        .event-card {
+            background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1); transition: 0.4s;
+            border-radius: 20px; overflow: hidden;
+        }
+        .event-card:hover { border-color: #00f2ff; transform: scale(1.03); background: rgba(255,255,255,0.08); }
+
+        .hidden-login { transform: translateY(-100%) scale(0.8); opacity: 0; pointer-events: none; }
     </style>
 </head>
-<body class="min-h-screen overflow-x-hidden">
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/30">
-        <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
-            <div class="flex items-center gap-5">
-                <div class="w-14 h-14 bg-white rounded-3xl flex items-center justify-center text-4xl shadow-[0_0_40px_#ffff00]">📰</div>
-                <h1 class="neon-title tracking-tighter">ANWAR NEWS</h1>
-            </div>
-            <div class="hidden md:block text-center">
-                <p class="text-2xl font-light tracking-widest">~1000 MAJOR & MINOR WORLD EVENTS • 1995 — 2026</p>
-            </div>
-            <a href="https://wa.me/255715999874" target="_blank" class="flex items-center gap-3 bg-green-500 hover:bg-green-600 px-7 py-4 rounded-3xl font-bold text-lg">
-                📱 +255 715 999 874
-            </a>
-        </div>
-    </header>
+<body>
 
-    <div class="max-w-screen-2xl mx-auto px-8 flex gap-10">
-        <!-- MAIN CONTENT -->
-        <div class="flex-1 py-10">
-            <div id="page-title" class="text-6xl font-bold mb-10 drop-shadow-2xl"></div>
-            <div id="page-content" class="min-h-[70vh]"></div>
-        </div>
+    <div id="bubbles-box" class="fixed inset-0 pointer-events-none z-[101]"></div>
 
-        <!-- SIDEBAR -->
-        <div class="w-80 hidden xl:block pt-10 sticky top-28 h-fit">
-            <div class="text-white/70 uppercase tracking-widest text-sm mb-6">Connect</div>
-            <a href="https://wa.me/255715999874" target="_blank" class="flex items-center gap-5 bg-green-600 hover:bg-green-700 p-6 rounded-3xl mb-6">
-                <div class="w-16 h-16 bg-white text-green-600 rounded-3xl flex items-center justify-center text-5xl">📱</div>
-                <div><div class="text-3xl font-bold">WhatsApp</div><div class="text-green-100">+255 715 999 874</div></div>
-            </a>
-            <a href="https://www.instagram.com/CLDARY.ANWAR" target="_blank" class="flex items-center gap-5 bg-gradient-to-br from-pink-500 to-yellow-400 p-6 rounded-3xl mb-6">
-                <div class="w-16 h-16 bg-white text-pink-600 rounded-3xl flex items-center justify-center text-5xl">📸</div>
-                <div><div class="text-3xl font-bold">@CLDARY.ANWAR</div><div class="text-pink-100">Instagram</div></div>
-            </a>
-            <a href="https://twitter.com/CLDARY161330" target="_blank" class="flex items-center gap-5 bg-black p-6 rounded-3xl border border-white/30">
-                <div class="w-16 h-16 bg-white text-black rounded-3xl flex items-center justify-center text-5xl">𝕏</div>
-                <div><div class="text-3xl font-bold">@CLDARY161330</div><div class="text-white/80">X / Twitter</div></div>
-            </a>
+    <div id="login-page" class="login-view">
+        <div class="max-w-md w-full p-10 bg-black/40 backdrop-blur-xl border border-white/10 rounded-[40px] shadow-2xl text-center">
+            <h1 class="logo-transformer text-4xl mb-2">ANWAR NEWS</h1>
+            <p class="text-cyan-400 tracking-[0.4em] text-[10px] mb-8">SECURE ARCHIVE ACCESS</p>
+            
+            <form id="loginForm" class="space-y-6">
+                <input type="email" placeholder="EMAIL ADDRESS" required class="w-full bg-white/5 border-b-2 border-white/20 p-3 outline-none focus:border-cyan-400 transition">
+                <input type="password" placeholder="SECURITY KEY" required class="w-full bg-white/5 border-b-2 border-white/20 p-3 outline-none focus:border-cyan-400 transition">
+                <button type="submit" class="w-full bg-cyan-600 py-4 font-bold rounded-xl hover:bg-white hover:text-black transition-all duration-500 uppercase tracking-widest">
+                    Decrypt & Enter
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- FOOTER NAV -->
-    <footer class="sticky bottom-0 z-50 bg-black/90 backdrop-blur-2xl border-t border-white/30 py-7">
-        <div class="max-w-screen-2xl mx-auto px-8 flex items-center justify-center gap-8">
-            <button onclick="prevPage()" class="footer-button flex items-center gap-4 bg-white/10 hover:bg-white/20 px-10 py-5 rounded-3xl text-2xl font-semibold">← PREVIOUS</button>
-            
-            <div class="flex items-center gap-6 bg-white/10 px-12 py-5 rounded-3xl">
-                <span id="current-page-num" class="text-5xl font-bold tabular-nums">01</span>
-                <span class="text-white/40 text-3xl">/</span>
-                <span class="text-white/70 text-3xl">13</span>
-                <div id="page-name-small" class="ml-8 text-lg font-medium max-w-xs truncate"></div>
+    <div id="archive-page" class="archive-view">
+        <header class="p-6 bg-black/80 sticky top-0 z-50 border-b border-cyan-900">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <h1 class="logo-transformer text-2xl">ANWAR NEWS</h1>
+                <div class="text-yellow-500 font-mono text-xs hidden md:block">DATABASE: 1995_2026 // ALL SECTORS READY</div>
             </div>
-            
-            <button onclick="nextPage()" class="footer-button flex items-center gap-4 bg-white/10 hover:bg-white/20 px-10 py-5 rounded-3xl text-2xl font-semibold">NEXT →</button>
-        </div>
-    </footer>
+        </header>
 
-    <!-- MODAL FOR DEEP EVENT EXPLANATION -->
-    <div id="event-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-[100]">
-        <div class="modal bg-zinc-900 max-w-3xl w-full mx-4 rounded-3xl overflow-hidden max-h-[90vh] overflow-y-auto">
-            <div class="p-8 border-b border-white/20 flex items-center justify-between sticky top-0 bg-zinc-900">
-                <h2 id="modal-title" class="text-3xl font-bold"></h2>
-                <button onclick="closeModal()" class="text-4xl leading-none hover:text-red-400">×</button>
+        <main class="max-w-7xl mx-auto p-8">
+            <div id="page-info" class="mb-8">
+                <h2 id="page-title" class="text-4xl font-black text-cyan-400 italic"></h2>
+                <p class="text-gray-400 mt-2">Showing 5 Global Records for this era.</p>
             </div>
-            <div id="modal-content" class="p-8 text-white/90 leading-relaxed text-lg"></div>
-        </div>
+            
+            <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+        </main>
+
+        <footer class="fixed bottom-0 left-0 right-0 p-6 bg-black/90 backdrop-blur-2xl border-t border-cyan-500/20">
+            <div class="max-w-4xl mx-auto flex items-center justify-between">
+                <button onclick="changePage(-1)" class="px-8 py-3 border border-cyan-500 text-cyan-500 hover:bg-cyan-500 hover:text-white transition rounded-full font-bold">PREV</button>
+                <div class="text-center">
+                    <span id="page-display" class="text-4xl font-black text-white">01</span>
+                    <span class="text-gray-500"> / 25</span>
+                </div>
+                <button onclick="changePage(1)" class="px-8 py-3 bg-cyan-600 text-white hover:bg-cyan-400 transition rounded-full font-bold">NEXT</button>
+            </div>
+        </footer>
     </div>
 
     <script>
+        // 1. GENERATE BUBBLES
+        const bBox = document.getElementById('bubbles-box');
+        for(let i=0; i<15; i++){
+            const b = document.createElement('div');
+            b.className = 'bubble';
+            b.style.left = Math.random()*100 + 'vw';
+            b.style.width = b.style.height = (Math.random()*40 + 10) + 'px';
+            b.style.animationDelay = Math.random()*5 + 's';
+            bBox.appendChild(b);
+        }
+
+        // 2. DATA ARCHIVE (Pages 1-25)
+        const totalPages = 25;
         let currentPage = 1;
-        const totalPages = 13;
 
-        // Rich data with ~1000 events distributed (summarized here for performance; each has deep explanation)
-        const pagesData = [
-            { id: 1, title: "🏠 HOME - ANWAR NEWS Archive", content: `
-                <p class="text-3xl leading-relaxed">Welcome to the world's most comprehensive never-before-created news archive.<br>~1000 major and minor global events from 1995 to 2026 with deep explanations.<br>Click any event card on pages 2-12 to read detailed history.</p>
-                <div class="mt-12 grid grid-cols-3 gap-6 text-center">
-                    <div class="bg-white/10 p-8 rounded-3xl">🌍 31 Years</div>
-                    <div class="bg-white/10 p-8 rounded-3xl">📚 ~1000 Events</div>
-                    <div class="bg-white/10 p-8 rounded-3xl">🔍 Deep Analysis</div>
-                </div>
-            `},
-            // Pages 2-12: Events with deep click details (example of structure; full rich content included)
-            { id: 2, title: "📅 1995 — 1997 • Deep Events", content: `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-2"></div>
-            `},
-            { id: 3, title: "📅 1998 — 2000 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-3"></div>`},
-            { id: 4, title: "📅 2001 — 2003 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-4"></div>`},
-            { id: 5, title: "📅 2004 — 2006 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-5"></div>`},
-            { id: 6, title: "📅 2007 — 2009 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-6"></div>`},
-            { id: 7, title: "📅 2010 — 2012 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-7"></div>`},
-            { id: 8, title: "📅 2013 — 2015 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-8"></div>`},
-            { id: 9, title: "📅 2016 — 2018 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-9"></div>`},
-            { id: 10, title: "📅 2019 — 2021 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-10"></div>`},
-            { id: 11, title: "📅 2022 — 2024 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-11"></div>`},
-            { id: 12, title: "📅 2025 — 2026 • Deep Events", content: `<div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="events-grid-12"></div>`},
-            { id: 13, title: "🎁 GIFT TO OUR CUSTOMER - Key Nations History", content: `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div class="bg-white/10 p-10 rounded-3xl"><h3 class="text-4xl font-bold mb-5">🇮🇷 IRAN</h3><p class="leading-relaxed">Ancient civilization... (full detailed history as before)</p></div>
-                    <!-- Similar detailed blocks for USA, Russia, Germany, South Africa, China, North Korea as in previous version -->
-                    <div class="bg-white/10 p-10 rounded-3xl md:col-span-2 text-center text-2xl">Thank you for exploring this rich global archive.</div>
-                </div>
-            `}
-        ];
+        // Function kutengeneza data fake lakini zenye mpangilio wa miaka
+        const masterArchive = {};
+        const startYear = 1995;
+        const endYear = 2026;
 
-        // Sample rich events data (in real code this is expanded to ~1000 entries; here shown representative)
-        const allEvents = {
-            2: [ // 1995-1997
-                { year: "1995", title: "Oklahoma City Bombing", desc: "On April 19, 1995, Timothy McVeigh and Terry Nichols detonated a truck bomb outside the Alfred P. Murrah Federal Building in Oklahoma City, killing 168 people including 19 children. It was the deadliest act of domestic terrorism in U.S. history until 9/11. The attack was motivated by anti-government sentiments related to events at Waco and Ruby Ridge. McVeigh was executed in 2001; Nichols received life imprisonment. The event led to major changes in U.S. domestic security and anti-terrorism laws." },
-                // ... many more events added in full version (e.g. Dayton Accords, WTO founding, O.J. Simpson trial, etc.)
-                { year: "1997", title: "Death of Princess Diana", desc: "Deep explanation: Princess Diana died in a high-speed car crash in Paris on August 31, 1997... global mourning, conspiracy theories, impact on British monarchy..." }
-                // Add ~80-90 more per page in full implementation
-            ],
-            // Similar detailed arrays for pages 3 to 12 with real events from 1998-2026 (9/11, Iraq War, Financial Crisis, Arab Spring, COVID-19, Russia-Ukraine, ChatGPT, etc.)
-        };
-
-        function renderPage(pageId) {
-            const page = pagesData.find(p => p.id === pageId);
-            document.getElementById('page-title').innerHTML = page.title;
-            document.getElementById('page-content').innerHTML = page.content;
-            document.getElementById('current-page-num').textContent = String(pageId).padStart(2, '0');
-            document.getElementById('page-name-small').textContent = page.title.split('•')[0] || page.title;
-
-            // Render clickable grids for event pages (2-12)
-            if (pageId >= 2 && pageId <= 12) {
-                const gridId = `events-grid-${pageId}`;
-                const grid = document.getElementById(gridId);
-                if (grid && allEvents[pageId]) {
-                    grid.innerHTML = '';
-                    allEvents[pageId].forEach(event => {
-                        const card = document.createElement('div');
-                        card.className = 'event-card bg-white/10 backdrop-blur-2xl p-6 rounded-3xl border border-white/30';
-                        card.innerHTML = `
-                            <div class="text-4xl font-bold text-yellow-300">${event.year}</div>
-                            <h4 class="text-2xl font-semibold mt-3">${event.title}</h4>
-                            <p class="text-white/70 text-sm mt-2 line-clamp-3">Click for deep historical explanation...</p>
-                        `;
-                        card.onclick = () => showEventModal(event);
-                        grid.appendChild(card);
-                    });
-                }
-            }
+        for(let p=1; p<=totalPages; p++) {
+            let yearVal = startYear + Math.floor((p-1) * 1.2); 
+            masterArchive[p] = {
+                title: `Sector ${p}: Global Evolution`,
+                events: [
+                    { y: yearVal, n: "Major Political Shift", d: "Deep analysis of global leadership changes and treaty signings during this specific window of history.", i: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=500" },
+                    { y: yearVal, n: "Tech Breakthrough", d: "A revolutionary invention in digital communication that paved the way for the modern internet and AI systems we use today.", i: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=500" },
+                    { y: yearVal, n: "Natural Phenomenon", d: "Significant environmental events that changed how humanity interacts with the planet's ecosystems and climate policy.", i: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500" },
+                    { y: yearVal, n: "Cultural Milestone", d: "Music, Art, and Cinema reached new heights, creating iconic moments that defined the generation of this era.", i: "https://images.unsplash.com/photo-1514525253361-b83f859b71c2?w=500" },
+                    { y: yearVal, n: "Economic Expansion", d: "Markets worldwide saw unprecedented growth as new trade routes and digital currencies began to take shape.", i: "https://images.unsplash.com/photo-1611974714658-52d3a776c535?w=500" }
+                ]
+            };
         }
 
-        function showEventModal(event) {
-            document.getElementById('modal-title').textContent = `${event.year} - ${event.title}`;
-            document.getElementById('modal-content').innerHTML = `<p>${event.desc}</p><div class="mt-8 text-sm opacity-70">Source: Global historical records • ANWAR NEWS Archive</div>`;
-            document.getElementById('event-modal').classList.remove('hidden');
-            document.getElementById('event-modal').classList.add('flex');
-        }
-
-        function closeModal() {
-            document.getElementById('event-modal').classList.add('hidden');
-            document.getElementById('event-modal').classList.remove('flex');
-        }
-
-        function nextPage() { currentPage = currentPage < totalPages ? currentPage + 1 : 1; renderPage(currentPage); }
-        function prevPage() { currentPage = currentPage > 1 ? currentPage - 1 : totalPages; renderPage(currentPage); }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'ArrowRight') nextPage();
-            if (e.key === 'ArrowLeft') prevPage();
+        // 3. LOGIN LOGIC
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('login-page').classList.add('hidden-login');
+            setTimeout(() => {
+                document.getElementById('archive-page').style.display = 'block';
+                renderPage(1);
+            }, 600);
         });
 
-        // Initialize
-        renderPage(1);
+        // 4. RENDER PAGE
+        function renderPage(p) {
+            const data = masterArchive[p];
+            document.getElementById('page-title').innerText = data.title;
+            document.getElementById('page-display').innerText = String(p).padStart(2, '0');
+            
+            const grid = document.getElementById('events-grid');
+            grid.innerHTML = '';
+
+            data.events.forEach(ev => {
+                grid.innerHTML += `
+                    <div class="event-card group cursor-pointer">
+                        <div class="h-48 overflow-hidden">
+                            <img src="${ev.i}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                        </div>
+                        <div class="p-6">
+                            <span class="text-cyan-400 font-bold font-mono text-xl">${ev.y}</span>
+                            <h4 class="text-white text-2xl font-bold mt-1">${ev.n}</h4>
+                            <p class="text-gray-400 text-sm mt-3 leading-relaxed">${ev.d}</p>
+                            <div class="mt-4 pt-4 border-t border-white/5 text-[10px] text-cyan-700 tracking-widest">DECRYPTED_SUCCESSFULLY</div>
+                        </div>
+                    </div>
+                `;
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function changePage(dir) {
+            currentPage += dir;
+            if(currentPage < 1) currentPage = totalPages;
+            if(currentPage > totalPages) currentPage = 1;
+            renderPage(currentPage);
+        }
     </script>
 </body>
 </html>
+      
+       
+   
+  
+
+
+   
+
+
+   
